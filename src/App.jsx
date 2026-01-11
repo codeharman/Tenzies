@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Die from './Die.jsx'
+import { nanoid } from 'nanoid'
 
 function App() {
 
@@ -9,10 +10,16 @@ function App() {
     let arr = []
     for(let i = 0; i < 10; i++){
       let random = Math.ceil(Math.random() * 6)
-      arr.push(random)
+      arr.push({
+        value: random,
+        isHeld: false,
+        id: nanoid()
+      })
     }
     return arr
   }
+
+  randomNumber()
 
   function result(){
     setDice(
@@ -20,7 +27,7 @@ function App() {
     )
   }
 
-  const diceResult = dice.map(data => <Die value={data}/>)
+  const diceResult = dice.map(data => <Die value={data.value}/>)
   const button = <button onClick={result}>Roll Dice</button>
 
   return (
